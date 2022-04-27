@@ -1,0 +1,105 @@
+*&---------------------------------------------------------------------*
+*& Include          Z_SFORZINI_EJERC_REPASO1_TOP
+*&---------------------------------------------------------------------*
+
+TABLES: EKKO, LFA1.
+TYPE-POOLS: SLIS.
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+SELECT-OPTIONS: P_EBELN FOR EKKO-EBELN,
+                P_BSART FOR EKKO-BSART OBLIGATORY,
+                P_ERNAM FOR EKKO-ERNAM,
+                P_LIFNR FOR EKKO-LIFNR,
+                P_LAND1 FOR LFA1-LAND1.
+
+PARAMETERS: P_IMP TYPE INTEGER DEFAULT 5 OBLIGATORY.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+PARAMETERS: P01 RADIOBUTTON GROUP RB1 USER-COMMAND UC DEFAULT 'X',
+            P02 RADIOBUTTON GROUP RB1.
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+*************************************************************************
+* Declaraciones de tipos.
+
+TYPES: BEGIN OF TY_FINAL,
+       DOC TYPE EBELN,
+       DOC_TYPE TYPE STRING,
+       MONTO TYPE RLWRT,
+       MONTO_IMP TYPE RLWRT,   "---> Porcentaje
+       MONEDA TYPE WAERS,
+       NAME TYPE NAME_TEXT,
+       FECHA TYPE STRING,    "---> Funcion
+       POS TYPE I,
+       POS_B TYPE I,
+       POS_TYPE TYPE STRING,
+       NIVEL TYPE STRING,    "---> Funcion
+       APROBADORES TYPE STRING,
+       PROVEEDOR TYPE STRING,
+       DIRECCION TYPE STRAS,   "---> Mayuscula
+       TELEFONO TYPE TELF1,
+       EMAIL TYPE AD_SMTPADR,
+       EMAIL_VAL TYPE STRING,
+       CONS_NUM TYPE STRING,
+       END OF TY_FINAL.
+
+TYPES: BEGIN OF TY_EKKO,
+       EBELN TYPE EKKO-EBELN,
+       BSART TYPE EKKO-BSART,
+       RLWRT TYPE EKKO-RLWRT,
+       WAERS TYPE EKKO-WAERS,
+       AEDAT TYPE EKKO-AEDAT,
+       ERNAM TYPE EKKO-ERNAM,
+       LIFNR TYPE EKKO-LIFNR,
+       END OF TY_EKKO,
+
+       BEGIN OF TY_EKPO,
+       EBELN TYPE EKPO-EBELN,
+       BSTYP TYPE EKPO-BSTYP,
+       PSTYP TYPE EKPO-PSTYP,
+       LOEKZ TYPE EKPO-LOEKZ,
+       END OF TY_EKPO,
+
+       BEGIN OF TY_LFA1,
+       LIFNR TYPE LFA1-LIFNR,
+       STRAS TYPE LFA1-STRAS,
+       ADRNR TYPE LFA1-ADRNR,
+       NAME1 TYPE LFA1-NAME1,
+       TELF1 TYPE LFA1-TELF1,
+       END OF TY_LFA1,
+
+       BEGIN OF TY_V_USR_NAME,
+       BNAME TYPE V_USR_NAME-BNAME,
+       NAME_TEXT TYPE V_USR_NAME-NAME_TEXT,
+       END OF TY_V_USR_NAME,
+
+       BEGIN OF TY_ADR6,
+       ADDRNUMBER TYPE ADR6-ADDRNUMBER,
+       SMTP_SRCH TYPE ADR6-SMTP_SRCH,
+       END OF TY_ADR6,
+
+       BEGIN OF TY_T161T,
+       SPRAS TYPE T161T-SPRAS,
+       BSART TYPE T161T-BSART,
+       BSTYP TYPE T161T-BSTYP,
+       BATXT TYPE T161T-BATXT,
+       END OF TY_T161T.
+
+*************************************************************************
+* Declaraciones de tablas y variables globales.
+
+DATA: GT_EKKO TYPE STANDARD TABLE OF TY_EKKO,
+      GT_EKPO TYPE STANDARD TABLE OF TY_EKPO,
+      GT_LFA1 TYPE STANDARD TABLE OF TY_LFA1,
+      GT_T161T TYPE STANDARD TABLE OF TY_T161T,
+      GT_V_USR_NAME TYPE STANDARD TABLE OF TY_V_USR_NAME,
+      GT_ADR6 TYPE STANDARD TABLE OF TY_ADR6,
+      GT_FINAL TYPE STANDARD TABLE OF TY_FINAL,
+      WA_FINAL TYPE TY_FINAL.
+
+*************************************************************************
